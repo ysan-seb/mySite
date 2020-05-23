@@ -1,2 +1,0 @@
-# mySite
-my portfolio website
