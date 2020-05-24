@@ -2,6 +2,20 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment'
 import './App.css';
 
+// soit categoriser par language avec un titre, soit trier par languages et/ou par dates ... 
+
+
+function extractLanguage(data) {
+  let array = []
+  let languages = []
+  data.forEach(element => {
+    if (element.language) {
+      array.push(element.language)
+    }
+  });
+  languages = new Set(array)
+  return languages
+}
 
 function displayColor(language) {
   switch (language) {
@@ -43,44 +57,54 @@ function App() {
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
+  // extractLanguage(projects)
+
+
+  projects.sort((a, b) => {
+    if (a.language < b.language)
+      return -1;
+    if (a.language > b.language)
+      return 1;
+    return 0;
+  })
+
   const listProjects = projects.map((project) =>
-    <div class="card border-dark m-3 shadow" style={{ maxWidth: `18rem` }}>
-      <div class="card-header font-weight-bolder"><a href={project.html_url}>{project.name}</a><span class="float-right font-weight-normal"><span style={{ width: `10px`, height: `10px`, borderRadius: `100%`, background: displayColor(project.language), display: `inline-block` }}></span> {project
+    <div className="card border-dark m-3 shadow" style={{ maxWidth: `18rem` }}>
+      <div className="card-header font-weight-bolder"><a href={project.html_url}>{project.name}</a><span className="float-right font-weight-normal"><span style={{ width: `10px`, height: `10px`, borderRadius: `100%`, background: displayColor(project.language), display: `inline-block` }}></span> {project
         .language}</span></div>
-      <div class="card-body text-dark">
-        {/* <h5 class="card-title">Dark card title</h5> */}
-        {/* <p class="card-text">{project.description}</p> */}
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        {/* <p class="card-text font-italic">------------------------------------------- No description -------------------------------------------</p> */}
+      <div className="card-body text-dark">
+        {/* <h5 className="card-title">Dark card title</h5> */}
+        {/* <p className="card-text">{project.description}</p> */}
+        <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        {/* <p className="card-text font-italic">------------------------------------------- No description -------------------------------------------</p> */}
       </div>
-      <div class="card-footer text-muted font-italic">
-        Update on {displayDate(project.updated_at)}
+      <div className="card-footer text-muted font-italic">
+        Updated on {displayDate(project.updated_at)}
       </div>
     </div>
   );
 
-  console.log(projects)
   return (
-    <div class="bg-light">
+    <div className="bg-light">
 
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a className="navbar-brand" href="/">Navbar</a>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="/">Features</a>
-            <a class="nav-item nav-link" href="/">Pricing</a>
-            <a class="nav-item nav-link" href="/">Disabled</a>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div className="navbar-nav">
+            <a className="nav-item nav-link active" href="/">Home <span className="sr-only">(current)</span></a>
+            <a className="nav-item nav-link" href="/">Features</a>
+            <a className="nav-item nav-link" href="/">Pricing</a>
+            <a className="nav-item nav-link" href="/">Disabled</a>
           </div>
         </div>
       </nav>
 
-      <h4 class="text-center mt-5">Example heading <span class="badge badge-dark">JavaScript</span></h4>
+      <h4 className="text-center mt-5">Example heading <span className="badge badge-dark">JavaScript</span></h4>
 
-      <div class="wrapper">
+      <div className="wrapper">
         {listProjects}
       </div>
     </div>
