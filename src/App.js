@@ -57,7 +57,7 @@ function App() {
     // empty dependency array means this effect will only run once (like componentDidMount in classes)
   }, []);
 
-  // extractLanguage(projects)
+  extractLanguage(projects)
 
 
   projects.sort((a, b) => {
